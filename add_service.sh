@@ -30,11 +30,15 @@ fi
 
 echo "Creating new service: $SERVICE_NAME"
 
-# Clone the template repository
 git clone https://github.com/damirtharaj0/docker-service-template.git "$SERVICE_NAME"
 
-# Remove the .git directory to avoid nested git repositories
 rm -rf "$SERVICE_NAME/.git"
+
+cd "$SERVICE_NAME" || exit 1
+git init
+git add .
+git commit -m "Initial commit for $SERVICE_NAME service"
+cd .. || exit 1
 
 echo "✓ Cloned service template for '$SERVICE_NAME'"
 echo "✓ Removed git history from template"
