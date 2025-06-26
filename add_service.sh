@@ -30,18 +30,14 @@ fi
 
 echo "Creating new service: $SERVICE_NAME"
 
-mkdir -p "$SERVICE_NAME/app"
+# Clone the template repository
+git clone https://github.com/damirtharaj0/docker-service-template.git "$SERVICE_NAME"
 
-cat > "$SERVICE_NAME/Dockerfile" << EOF
-FROM python
+# Remove the .git directory to avoid nested git repositories
+rm -rf "$SERVICE_NAME/.git"
 
-WORKDIR /app
-
-COPY ./app .
-EOF
-
-echo "✓ Created directory structure for '$SERVICE_NAME'"
-echo "✓ Created Dockerfile for '$SERVICE_NAME'"
+echo "✓ Cloned service template for '$SERVICE_NAME'"
+echo "✓ Removed git history from template"
 
 cat >> docker-compose.yml << EOF
   $SERVICE_NAME:
